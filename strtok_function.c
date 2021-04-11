@@ -16,7 +16,7 @@ int _strlen(char *str)
 char **_split(char *str, char *delim)
 {
     int i, j, chars, lines = 1;
-    char **splitted, char *token;
+    char **splitted, *token;
 
     for (i = 0; str[i]; i++)
         if (str[i] == delim[0])
