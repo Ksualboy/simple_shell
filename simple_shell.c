@@ -12,8 +12,8 @@
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted = NULL, *command;
-	int id, i;
 	size_t size = 32, n, error = -1;
+	struct stat st;
 
 	input = (malloc(sizeof(char) * size));
 	if (!input)
@@ -36,8 +36,13 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
+		if (stat(splitted[0], &st) == 0)
+		{
+			execute(splitted[0], splitted, av[0]);
+			array_cleaner(splitted);
+			continue;
+		}
 		command = getpath(env, splitted[0]);
-
 		if (!command)
 		{
 			write(2, av[0], _strlen(av[0]));
@@ -46,7 +51,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		else
 			if (execute(command, splitted, av[0]) == -1)
 				return (-1);
-
 		array_cleaner(splitted);
 		free(command);
 	}
@@ -66,12 +70,14 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 
 int execute(char *command, char **arguments, char *av)
 {
+	int id;
+
 	id = fork();
 
 	if (id != 0)
 		wait(NULL);
 
-	if (id == 0 && execve(command, splitted, NULL) == -1)
+	if (id == 0 && execve(command, arguments, NULL) == -1)
 	{
 		write(2, av, _strlen(av));
 		perror(": ");
