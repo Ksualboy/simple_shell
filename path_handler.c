@@ -45,7 +45,7 @@ char *getpath(char **environ, char *input)
 	for (i = 1; path[i]; i++)
 	{
 		path_len = _strlen(path[i]);
-		command = malloc(sizeof(char) * (path_len + input_len + 1));
+		command = malloc(sizeof(char) * (path_len + input_len + 2));
 		if (!command)
 		{
 			write(2, "Unable to allocate memory", 25);
@@ -60,12 +60,23 @@ char *getpath(char **environ, char *input)
 		for (k = 0; input[k]; k++)
 			command[j + k] = input[k];
 
-		if (stat(command, &st) == 0)
-			return (command);
+		command[j + k] = '\0';
 
-		command = NULL;
+		if (stat(command, &st) == 0)
+		{
+			for (i = 0; path[i]; i++)
+				free(path[i]);
+
+			free(path);
+			return (command);
+		}
+		free(command);
 	}
-	
+
+	for (i = 0; path[i]; i++)
+				free(path[i]);
+
+	free(path);
 
 	return (NULL);
 }

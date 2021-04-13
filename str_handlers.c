@@ -60,7 +60,7 @@ char *_strdup(char *str)
 
 char **_split(char *str, char *delim)
 {
-	int i, j, chars, lines = 0;
+	int i, j, chars, lines = 1;
 	char **splitted, *token, *strdup;
 
 	strdup = _strdup(str);
@@ -70,7 +70,6 @@ char **_split(char *str, char *delim)
 			lines++;
 
 	splitted = malloc((lines + 1) * sizeof(char *));
-
 
 	if (!splitted)
 	{
@@ -102,5 +101,6 @@ char **_split(char *str, char *delim)
 		token = strtok(0, delim);
 	}
 	splitted[j] = NULL;
+	free(strdup);
 	return (splitted);
 }
