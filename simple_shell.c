@@ -56,7 +56,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		if (n == error)
 		{
 			write(1, "\n", 1);
-			break;
+			continue;
 		}
 		if (input[0] == '\n')
 			continue;
