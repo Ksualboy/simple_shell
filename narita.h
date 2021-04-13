@@ -12,6 +12,9 @@
 
 /* -------- Prototypes -------- */
 
+/* simple_shell.c */
+int execute(char *command, char **arguments, char *av);
+
 /* str_handlers */
 int _strlen(char *str);
 char *_strdup(char *str);

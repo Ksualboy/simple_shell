@@ -44,24 +44,39 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			write(2, ": No such file or directory\n", 28);
 		}
 		else
-		{
-			id = fork();
-
-			if (id != 0)
-				wait(NULL);
-
-			if (id == 0 && execve(command, splitted, NULL) == -1)
-			{
-				write(2, av[0], _strlen(av[0]));
-				perror(": ");
+			if (execute(command, splitted, av[0]) == -1)
 				return (-1);
-			}
-		}
 
 		array_cleaner(splitted);
 		free(command);
 	}
 
 	free(input);
+	return (0);
+}
+
+/**
+ * execute - Runs a given program
+ * @command: command to run
+ * @arguments: arguments to pass to execve
+ * @av: name of the program
+ *
+ * Return: -1 if it breaks, 0 if it doesn't
+*/
+
+int execute(char *command, char **arguments, char *av)
+{
+	id = fork();
+
+	if (id != 0)
+		wait(NULL);
+
+	if (id == 0 && execve(command, splitted, NULL) == -1)
+	{
+		write(2, av, _strlen(av));
+		perror(": ");
+		return (-1);
+	}
+
 	return (0);
 }
