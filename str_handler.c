@@ -70,7 +70,6 @@ char **_split(char *str, char *delim)
 			lines++;
 
 	splitted = malloc((lines + 1) * sizeof(char *));
-
 	if (!splitted)
 	{
 		write(2, "Unable to allocate memory", 25);
@@ -78,7 +77,6 @@ char **_split(char *str, char *delim)
 	}
 	token = strtok(strdup, delim);
 	j = 0;
-
 	while (token)
 	{
 		chars = _strlen(token);
@@ -91,7 +89,6 @@ char **_split(char *str, char *delim)
 			free(splitted);
 			exit(1);
 			}
-
 		for (i = 0; i < chars; i++)
 		{
 			splitted[j][i] = token[i];
