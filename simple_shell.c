@@ -13,6 +13,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted = NULL, *command;
 	size_t size = 32, n, error = -1;
+	int i;
 	struct stat st;
 
 	input = (malloc(sizeof(char) * size));
@@ -36,6 +37,21 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
+		if (_strcmp(splitted[0], "exit"))
+		{
+			array_cleaner(splitted);
+			free(input);
+			exit(0);
+		}
+		if (_strcmp(splitted[0], "env"))
+		{
+			for (i = 0; env[i]; i++)
+			{
+				write(1, env[i], _strlen(env[i]));
+				write(1, "\n", 1);
+			}
+			continue;
+		}
 		if (stat(splitted[0], &st) == 0)
 		{
 			execute(splitted[0], splitted, av[0]);

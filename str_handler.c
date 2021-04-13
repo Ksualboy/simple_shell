@@ -101,3 +101,27 @@ char **_split(char *str, char *delim)
 	free(strdup);
 	return (splitted);
 }
+
+/**
+ * _strcmp - Compares two arrays
+ * @origin: 1st array
+ * @comp: 2nd array
+ *
+ * Return: 1 if same, 0 if different
+*/
+
+int _strcmp(char *origin, char *comp)
+{
+	int i;
+
+	for (i = 0; origin[i] && comp[i]; i++)
+	{
+		if (origin[i] != comp[i])
+			break;
+	}
+
+	if (i == _strlen(origin) && i == _strlen(comp))
+		return (1);
+	else
+		return (0);
+}

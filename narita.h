@@ -19,6 +19,7 @@ int execute(char *command, char **arguments, char *av);
 int _strlen(char *str);
 char *_strdup(char *str);
 char **_split(char *str, char *delim);
+int _strcmp(char *origin, char *comp);
 
 /* path_handler.c */
 char *_getenv(char *name, char **environ);
