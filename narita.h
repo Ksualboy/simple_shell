@@ -14,6 +14,7 @@
 
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
+int core(char *input, char **splitted, char **env, char **av);
 
 /* str_handlers */
 int _strlen(char *str);
