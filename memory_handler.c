@@ -1,4 +1,4 @@
-#include "narita.h";
+#include "narita.h"
 
 void array_cleaner(char **fire)
 {
