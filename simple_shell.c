@@ -57,18 +57,15 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 				perror(": ");
 				return (-1);
 			}
-
-			free(command);
 		}
-	}
 
-	if (splitted)
-	{
 		for (i = 0; splitted[i]; i++)
 			free(splitted[i]);
 
 		free(splitted);
+		free(command);
 	}
+
 	free(input);
 	return (0);
 }
