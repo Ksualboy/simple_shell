@@ -18,8 +18,8 @@ char *_strdup(char *str);
 char **_split(char *str, char *delim);
 
 /* path_handler.c */
-char *_getenv(const char *name, char **environ);
-char **getpath(char **environ);
+char *_getenv(char *name, char **environ);
+char *getpath(char **environ, char *input);
 
 
 #endif /* ifndef NARITA_H */

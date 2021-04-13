@@ -9,16 +9,16 @@
  * Return: 0 if success
 */
 
-int main(int ac, char **av, char **env)
+int main(int ac __attribute__((unused)), char **av, char **env)
 {
-	char *input, **splitted = NULL;
+	char *input, **splitted = NULL, *command;
 	int id, i;
-	size_t size = 32, n, minus = -1;
+	size_t size = 32, n, error = -1;
 
 	input = (malloc(sizeof(char) * size));
 	if (!input)
 	{
-		perror("No se pudo reservar la memoria");
+		write(1, "Unable to allocate memory", 25);
 		exit(1);
 	}
 
@@ -26,7 +26,7 @@ int main(int ac, char **av, char **env)
 	{
 		write(1, "$uwu ", 5);
 		n = getline(&input, &size, stdin);
-		if (n == minus)
+		if (n == error)
 		{
 			write(1, "\n", 1);
 			break;
@@ -36,15 +36,28 @@ int main(int ac, char **av, char **env)
 
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
-		id = fork();
+		command = getpath(env, splitted[0]);
 
-		if (id != 0)
-			wait(NULL);
-
-		if (id == 0 && execve(splitted[0], splitted, NULL) == -1)
+		if (!command)
 		{
-			perror("Error: ");
-			return (-1);
+			write(2, av[0], _strlen(av[0]));
+			write(2, ": No such file or directory\n", 28);
+		}
+		else
+		{
+			id = fork();
+
+			if (id != 0)
+				wait(NULL);
+
+			if (id == 0 && execve(splitted[0], splitted, NULL) == -1)
+			{
+				write(2, av[0], _strlen(av[0]));
+				perror(": ");
+				return (-1);
+			}
+
+			free(command);
 		}
 	}
 
@@ -55,6 +68,8 @@ int main(int ac, char **av, char **env)
 
 		free(splitted);
 	}
+
 	free(input);
+
 	return (0);
 }

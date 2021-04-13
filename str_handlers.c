@@ -37,7 +37,8 @@ char *_strdup(char *str)
 	dup = malloc((sizeof(char) * i) + 1);
 	if (!dup)
 	{
-		return (NULL);
+		write(1, "Unable to allocate memory", 25);
+		exit(1);
 	}
 
 	for (i = 0; str[i]; i++)
@@ -60,11 +61,12 @@ char *_strdup(char *str)
 char **_split(char *str, char *delim)
 {
 	int i, j, chars, lines = 1;
-	char **splitted;
-	char *token;
+	char **splitted, *token, *strdup;
 
-	for (i = 0; str[i]; i++)
-		if (str[i] == delim[0])
+	strdup = _strdup(str);
+
+	for (i = 0; strdup[i]; i++)
+		if (strdup[i] == delim[0])
 			lines++;
 
 	splitted = malloc((lines + 1) * sizeof(char *));
@@ -73,7 +75,7 @@ char **_split(char *str, char *delim)
 		write(1, "Unable to allocate memory", 25);
 		exit(1);
 	}
-	token = strtok(str, delim);
+	token = strtok(strdup, delim);
 	j = 0;
 
 	while (token)
@@ -85,8 +87,8 @@ char **_split(char *str, char *delim)
 			write(1, "Unable to allocate memory", 25);
 			for (; j != 0 ; j--)
 				free(splitted[j - 1]);
-				free(splitted);
-				exit(1);
+			free(splitted);
+			exit(1);
 			}
 
 		for (i = 0; i < chars; i++)
@@ -97,6 +99,6 @@ char **_split(char *str, char *delim)
 		j++;
 		token = strtok(0, delim);
 	}
-	splitted[j] = 0;
+	splitted[j] = NULL;
 	return (splitted);
 }
