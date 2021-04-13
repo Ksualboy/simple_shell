@@ -37,7 +37,7 @@ char *_strdup(char *str)
 	dup = malloc((sizeof(char) * i) + 1);
 	if (!dup)
 	{
-		write(1, "Unable to allocate memory", 25);
+		write(2, "Unable to allocate memory", 25);
 		exit(1);
 	}
 
@@ -60,7 +60,7 @@ char *_strdup(char *str)
 
 char **_split(char *str, char *delim)
 {
-	int i, j, chars, lines = 1;
+	int i, j, chars, lines = 0;
 	char **splitted, *token, *strdup;
 
 	strdup = _strdup(str);
@@ -101,6 +101,6 @@ char **_split(char *str, char *delim)
 		j++;
 		token = strtok(0, delim);
 	}
-	splitted[j] = 0;
+	splitted[j] = NULL;
 	return (splitted);
 }
