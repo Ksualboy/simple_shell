@@ -42,6 +42,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	char *input, **splitted;
 	size_t size = 32, n, error = -1;
 
+	signal(SIGINT, signhandler);
 	input = (malloc(sizeof(char) * size));
 	if (!input)
 	{
@@ -55,7 +56,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		n = getline(&input, &size, stdin);
 		if (n == error)
 		{
-			write(1, "\n", 1);
+			free(input);
 			continue;
 		}
 		if (input[0] == '\n')
@@ -133,4 +134,11 @@ int core(char *input, char **splitted, char **env, char **av)
 	array_cleaner(splitted);
 	free(command);
 	return (10);
+}
+
+
+void signhandler(int signum __attribute__((unused)))
+{
+	write(1, "\n", 1);
+	write(1, "#cisfun$ ", 9);
 }

@@ -2,6 +2,7 @@
 #define NARITA_H
 
 #include <stdio.h>
+#include <signal.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
@@ -15,6 +16,7 @@
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
 int core(char *input, char **splitted, char **env, char **av);
+void signhandler(int signum);
 
 /* str_handlers */
 int _strlen(char *str);
