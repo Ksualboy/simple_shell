@@ -42,6 +42,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			array_cleaner(splitted);
 			continue;
 		}
+		/* Aquí rompe en 2da ejecucion */
 		command = getpath(env, splitted[0]);
 		if (!command)
 		{
@@ -51,6 +52,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		else
 			if (execute(command, splitted, av[0]) == -1)
 				return (-1);
+	
 		array_cleaner(splitted);
 		free(command);
 	}
