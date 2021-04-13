@@ -7,12 +7,12 @@
 
 void array_cleaner(char **fire)
 {
-    int i;
+	int i;
 
-    for (i = 0; fire[i]; i++)
-    {
-        free(fire[i]);
-    }
+	for (i = 0; fire[i]; i++)
+	{
+		free(fire[i]);
+	}
 
-    free(fire);
+	free(fire);
 }

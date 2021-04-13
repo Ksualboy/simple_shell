@@ -28,6 +28,7 @@ char *_getenv(char *name, char **environ)
 /**
  * getpath - Gets the PATH variable
  * @environ: enviroment variable
+ * @input: command pass by user
  *
  * Return: the splitted PATH variable
 */
@@ -38,7 +39,6 @@ char *getpath(char **environ, char *input)
 	unsigned int input_len, path_len, i, j, k;
 	struct stat st;
 
-	
 	path = _split(_getenv("PATH", environ), "=:");
 	input_len = _strlen(input);
 
@@ -51,7 +51,7 @@ char *getpath(char **environ, char *input)
 			write(2, "Unable to allocate memory", 25);
 			exit(1);
 		}
-		
+
 		for (j = 0; path[i][j]; j++)
 			command[j] = path[i][j];
 
