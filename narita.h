@@ -21,5 +21,8 @@ char **_split(char *str, char *delim);
 char *_getenv(char *name, char **environ);
 char *getpath(char **environ, char *input);
 
+/* memory_handler.c */
+void array_cleaner(char **fire);
+
 
 #endif /* ifndef NARITA_H */

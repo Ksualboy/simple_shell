@@ -45,7 +45,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		}
 		else
 		{
-			printf("%s\n", command);
 			id = fork();
 
 			if (id != 0)

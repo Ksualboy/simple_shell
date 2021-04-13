@@ -64,19 +64,12 @@ char *getpath(char **environ, char *input)
 
 		if (stat(command, &st) == 0)
 		{
-			for (i = 0; path[i]; i++)
-				free(path[i]);
-
-			free(path);
+			array_cleaner(path);
 			return (command);
 		}
 		free(command);
 	}
-
-	for (i = 0; path[i]; i++)
-				free(path[i]);
-
-	free(path);
+	array_cleaner(path);
 
 	return (NULL);
 }
