@@ -51,7 +51,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 
 	while (1)
 	{
-		write(1, "$uwu ", 5);
+		write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
 		if (n == error)
 		{
