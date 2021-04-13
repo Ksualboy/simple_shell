@@ -18,7 +18,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	input = (malloc(sizeof(char) * size));
 	if (!input)
 	{
-		write(1, "Unable to allocate memory", 25);
+		write(2, "Unable to allocate memory", 25);
 		exit(1);
 	}
 
@@ -50,14 +50,14 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			if (id != 0)
 				wait(NULL);
 
-			if (id == 0 && execve(splitted[0], splitted, NULL) == -1)
+			if (id == 0 && execve(command, splitted, NULL) == -1)
 			{
 				write(2, av[0], _strlen(av[0]));
 				perror(": ");
 				return (-1);
 			}
 
-			free(command);
+			command = NULL;
 		}
 	}
 
@@ -68,8 +68,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 
 		free(splitted);
 	}
-
 	free(input);
-
 	return (0);
 }

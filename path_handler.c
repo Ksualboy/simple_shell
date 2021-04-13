@@ -14,10 +14,10 @@ char *_getenv(char *name, char **environ)
 
 	n = _strlen(name);
 	for (i = 0; environ[i]; i++)
+	{
+		for (j = 0; environ[i][j] == name[j]; j++)
 		{
-			for (j = 0; environ[i][j] == name[j]; j++)
-			{
-			}
+		}
 		if (j == n && environ[i][j] == '=')
 			return (environ[i]);
 
@@ -41,14 +41,14 @@ char *getpath(char **environ, char *input)
 	
 	path = _split(_getenv("PATH", environ), "=:");
 	input_len = _strlen(input);
-	
-	for (i = 0; path[i]; i++)
-	{	
+
+	for (i = 1; path[i]; i++)
+	{
 		path_len = _strlen(path[i]);
 		command = malloc(sizeof(char) * (path_len + input_len + 1));
 		if (!command)
 		{
-			write(1, "Unable to allocate memory", 25);
+			write(2, "Unable to allocate memory", 25);
 			exit(1);
 		}
 		
@@ -63,7 +63,7 @@ char *getpath(char **environ, char *input)
 		if (stat(command, &st) == 0)
 			return (command);
 
-		free(command);
+		command = NULL;
 	}
 	
 
