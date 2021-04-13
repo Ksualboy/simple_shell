@@ -58,10 +58,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			}
 		}
 
-		for (i = 0; splitted[i]; i++)
-			free(splitted[i]);
-
-		free(splitted);
+		array_cleaner(splitted);
 		free(command);
 	}
 
