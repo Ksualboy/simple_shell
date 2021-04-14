@@ -24,10 +24,6 @@ int execute(char *command, char **arguments, char *av)
 		perror(": ");
 		return (-1);
 	}
-	if (id == 0)
-	{
-	execve(command, arguments, NULL);
-	}
 
 	return (0);
 }
