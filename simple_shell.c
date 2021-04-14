@@ -51,7 +51,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
 
-	
 		input[n - 1] = ' ';
 		splitted = _split(input, " \n\t\r");
 			if (splitted[0] == NULL)
