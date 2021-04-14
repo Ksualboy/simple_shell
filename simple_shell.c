@@ -59,7 +59,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		switch (core(input, splitted, lines, env, av))
 		{
 			case 0:
-				exit(0);
+				return (-1);
 
 			case 1:
 				continue;
