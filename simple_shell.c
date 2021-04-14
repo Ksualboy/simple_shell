@@ -42,47 +42,41 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	char *input, **splitted;
 	size_t size = 32, n, error = -1;
 	unsigned int lines = 1;
-	int boolean = 1;
 
-/*	signal(SIGINT, signhandler); */
 	input = (malloc(sizeof(char) * size));
 	if (!input)
 	{
 		write(2, "Unable to allocate memory", 25);
 		exit(1);
 	}
-	if (!isatty(0))
-		boolean = 0;
-
-
 	while (1)
 	{
-		if (boolean == 1)
+		if (isatty(0) == 1)
 			write(1, "#cisfun$ ", 9);
-
 		n = getline(&input, &size, stdin);
 		if (n == error)
 			break;
-
 		if (n == 1)
 			continue;
 
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
+		if (!*splitted)
+		{
+			free(splitted);
+			continue;
+		}
 		switch (core(input, splitted, lines, env, av))
 		{
 			case 0:
 				exit(0);
-
 			case 1:
 				continue;
-
 			case -1:
 				return (-1);
 		}
 		lines++;
 	}
-
 	free(input);
 	return (0);
 }
@@ -91,7 +85,8 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 /**
  * core - the heart of our shell
  * @input: the imput of the user
- * @splitted: proccessed input
+ * @split: proccessed input
+ * @lines: ammount of lines
  * @env: enviroment variable
  * @av: arguments
  *
@@ -129,7 +124,7 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	command = getpath(env, split[0]);
 	if (!command)
 		error_message(lines, split[0], av);
-	
+
 	else if (execute(command, split, av[0]) == -1)
 	{
 		perror(": ");
@@ -140,12 +135,11 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	return (10);
 }
 
-/*
-*void signhandler(int signum __attribute__((unused)))
-*{
-*	write(1, "\n", 1);
-*	write(1, "#cisfun$ ", 9);
-*}
+/**
+ * error_message - Prints the error message
+ * @lines: Ammount of lines so far
+ * @split: proccessed input
+ * @av: ammount of lines
 */
 
 void error_message(int lines, char *split, char **av)
