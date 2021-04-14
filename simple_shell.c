@@ -158,4 +158,5 @@ void error_message(int lines, char *split, char **av)
 	write(2, ": ", 2);
 	write(2, split, _strlen(split));
 	write(2, ": not found\n", 12);
+	free(strlines);
 }
