@@ -54,7 +54,8 @@ If you want to exit the shell, you can type `exit`.
 ` str_handler.c` : C file that contains all the functions that handle strings and arrays.
 ## Flowchart
 The flowchart we do to make this shell
-[![Flowchart of NSS](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true "Flowchart of NSS")](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true "Flowchart of NSS")
+[![Flowchart of NSS](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true)](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true )
+"Flowchart of NSS"
 ## Bugs
 Probably some ones but we dont find them
 ## Authors
