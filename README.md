@@ -1,5 +1,5 @@
 # Narita Simple Shell
-[![Image from game Narita Boy that helped us to disperse in moments of despair](http://www.github.com/ksualboy/simple_shell/narita.png "Image from game Narita Boy that helped us to disperse in moments of despair")](http://www.github.com/ksualboy/simple_shell/narita.png "Image from game Narita Boy that helped us to disperse in moments of despair")
+[![Image from game Narita Boy that helped us to disperse in moments of despair](https://github.com/Ksualboy/simple_shell/blob/main/narita.png?raw=true "Image from game Narita Boy that helped us to disperse in moments of despair")](https://github.com/Ksualboy/simple_shell/blob/main/narita.png?raw=true "Image from game Narita Boy that helped us to disperse in moments of despair")
 
 ## Description
 
@@ -54,7 +54,7 @@ If you want to exit the shell, you can type `exit`.
 ` str_handler.c` : C file that contains all the functions that handle strings and arrays.
 ## Flowchart
 The flowchart we do to make this shell
-[![Flowchart of NSS](http://github.com/ksualboy/simple_shell/flowchart.png "Flowchart of NSS")](http://github.com/ksualboy/simple_shell/flowchart.png "Flowchart of NSS")
+[![Flowchart of NSS](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true "Flowchart of NSS")](https://github.com/Ksualboy/simple_shell/blob/main/flowchart.png?raw=true "Flowchart of NSS")
 ## Bugs
 Probably some ones but we dont find them
 ## Authors
