@@ -40,35 +40,21 @@ int execute(char *command, char **arguments, char *av)
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted;
-	size_t size = 32, n, error = -1;
+	size_t size = 1024, bytes_read;
 	unsigned int lines = 1;
-	int boolean = 1;
 
-/*	signal(SIGINT, signhandler); */
 	input = (malloc(sizeof(char) * size));
-	if (!input)
-	{
-		write(2, "Unable to allocate memory", 25);
-		exit(1);
-	}
-	if (!isatty(0))
-		boolean = 0;
-
-
+	signal(SIGINT, signhandler);
 	while (1)
 	{
-		if (boolean == 1)
-			write(1, "#cisfun$ ", 9);
-
-		n = getline(&input, &size, stdin);
-		if (n == error)
-			break;
-
-		if (n == 1)
+		write(1, "#cisfun$ ", 9);
+		bytes_read = getline(&input, &size, stdin);
+		printf("%zu\n", bytes_read);
+		splitted = _split(input, " \n\t\r");
+		if (bytes_read == 1)
 			continue;
-
-		input[n - 1] = ' ';
-		splitted = _split(input, " ");
+		if (bytes_read == -1)
+			break;
 		switch (core(input, splitted, lines, env, av))
 		{
 			case 0:
@@ -91,9 +77,10 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 /**
  * core - the heart of our shell
  * @input: the imput of the user
- * @splitted: proccessed input
  * @env: enviroment variable
  * @av: arguments
+ * @split: splitted string
+ * @lines: number of lines
  *
  * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
@@ -129,7 +116,7 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	command = getpath(env, split[0]);
 	if (!command)
 		error_message(lines, split[0], av);
-	
+
 	else if (execute(command, split, av[0]) == -1)
 	{
 		perror(": ");
@@ -140,12 +127,28 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	return (10);
 }
 
-/*
-*void signhandler(int signum __attribute__((unused)))
-*{
-*	write(1, "\n", 1);
-*	write(1, "#cisfun$ ", 9);
-*}
+/**
+ * signhandler - This program allows ctrl+C to be
+ * printed by the shell
+ * @signum: signum
+ *
+ * Return: void
+ */
+
+void signhandler(int signum __attribute__((unused)))
+{
+	write(1, "\n", 1);
+	write(1, "#cisfun$ ", 9);
+}
+
+
+/**
+ * error_message - function for error message
+ * @split: splitted string
+ * @lines: number of lines
+ * @av: argument
+ *
+ * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
 
 void error_message(int lines, char *split, char **av)
