@@ -43,9 +43,9 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	size_t size = 1024;
 	unsigned int lines = 1;
 
-/*	signal(SIGINT, signhandler); */
+	
 	input = (malloc(sizeof(char) * size));
-
+	signal(SIGINT, signhandler);
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
@@ -128,13 +128,19 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	return (10);
 }
 
-/*
-*void signhandler(int signum __attribute__((unused)))
-*{
-*	write(1, "\n", 1);
-*	write(1, "#cisfun$ ", 9);
-*}
-*/
+/**
+ * signhandler - This program allows ctrl+C
+ * @signum: signum
+ *
+ * Return: void
+ */
+
+void signhandler(int signum __attribute__((unused)))
+{
+	write(1, "\n", 1);
+	write(1, "#cisfun$ ", 9);
+}
+
 
 /**
  * error_message - function for error message

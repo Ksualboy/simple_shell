@@ -16,7 +16,7 @@
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
 int core(char *input, char **split, unsigned int lines, char **env, char **av);
-/*void signhandler(int signum);*/
+void signhandler(int signum);
 void error_message(int lines, char *split, char **av);
 
 /* str_handlers */
