@@ -43,14 +43,23 @@ If you want to exit the shell, you can type `exit`.
 
 ## Files
 ` README.md` : Current file, contains all the information about this project and the files in this directory
+
 ` AUTHORS`  : Contains the authors of this "beautiful" shell
+
 ` flowchart.png` : the flowchart image file
+
 ` man_1_simple_shell` : man file of this shell
+
 ` memory_handler.c` : C file that contains all memory-related functions.
+
 ` narita.h` : Header file, contains all prototypes for funcitons used, as well as libriaries
+
 ` narita.png` : Image from Narita Boy Game
+
 ` path_handler.c` : C file that contains all the functions related to the handling of the $PATH enviroment variable
+
 ` simple_shell.c` : C file that contains the shell main function, together with some external functions that are used in the main
+
 ` str_handler.c` : C file that contains all the functions that handle strings and arrays.
 ## Flowchart
 
