@@ -15,9 +15,9 @@
 
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
-int core(char *input, char **split, unsigned int lines, char **env, char **av);
+int core(char **split, int lines, char **env, char **av, int *err);
 void error_message(int lines, char *split, char **av);
-char *pointer_maker(size_t size);
+char *input_maker(size_t size);
 
 /* str_handlers */
 int _strlen(char *str);

@@ -22,7 +22,7 @@ int execute(char *command, char **arguments, char *av)
 	{
 		write(2, av, _strlen(av));
 		perror(": ");
-		return (-1);
+		return (errno);
 	}
 
 	return (0);
@@ -40,9 +40,8 @@ int execute(char *command, char **arguments, char *av)
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted;
-	size_t size = 32, n, error = -1;
-	unsigned int lines = 1;
-	int *error_value;
+	size_t size = 32;
+	int *error_value, n, error, lines = 1;
 
 	error_value = malloc(sizeof(int));
 	*error_value = 0;
@@ -54,9 +53,9 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		if (isatty(0) == 1)
 			write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
-		if (n == error)
+		if (n == -1)
 		{
-			printf("%d\n", errno);
+			*error_value = errno;
 			break;
 		}
 		if (n == 1)
@@ -69,19 +68,19 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			free(splitted);
 			continue;
 		}
-		switch (core(input, splitted, lines, env, av))
+		switch (core(splitted, lines, env, av, error_value))
 		{
 			case 0:
-				exit(0);
+				break;
 			case 1:
 				continue;
-			case -1:
-				return (-1);
 		}
 		lines++;
 	}
 	free(input);
-	return (0);
+	error = *error_value;
+	free(error_value);
+	return (error);
 }
 
 
@@ -96,7 +95,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
  * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
 
-int core(char *input, char **split, unsigned int lines, char **env, char **av)
+int core(char **split, int lines, char **env, char **av, int *err)
 {
 	char *command;
 	int i;
@@ -105,7 +104,6 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	if (_strcmp(split[0], "exit"))
 	{
 		array_cleaner(split);
-		free(input);
 		return (0);
 	}
 	if (_strcmp(split[0], "env"))
@@ -120,18 +118,21 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	}
 	if (stat(split[0], &st) == 0)
 	{
-		execute(split[0], split, av[0]);
+		*err = execute(split[0], split, av[0]);
 		array_cleaner(split);
 		return (1);
 	}
 	command = getpath(env, split[0]);
 	if (!command)
+	{
+		*err = 127;
 		error_message(lines, split[0], av);
-
+	}
 	else if (execute(command, split, av[0]) == -1)
 	{
 		perror(": ");
-		return (-1);
+		*err = errno;
+		return (0);
 	}
 	array_cleaner(split);
 	free(command);
