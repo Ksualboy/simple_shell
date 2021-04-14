@@ -85,9 +85,10 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 /**
  * core - the heart of our shell
  * @input: the imput of the user
- * @splitted: proccessed input
  * @env: enviroment variable
  * @av: arguments
+ * @split: splitted string
+ * @lines: number of lines
  *
  * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
@@ -123,7 +124,7 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 	command = getpath(env, split[0]);
 	if (!command)
 		error_message(lines, split[0], av);
-	
+
 	else if (execute(command, split, av[0]) == -1)
 	{
 		perror(": ");
@@ -140,6 +141,15 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 *	write(1, "\n", 1);
 *	write(1, "#cisfun$ ", 9);
 *}
+*/
+
+/**
+ * error_message - function for error message
+ * @split: splitted string
+ * @lines: number of lines
+ * @av: argument
+ *
+ * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
 
 void error_message(int lines, char *split, char **av)
