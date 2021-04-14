@@ -15,7 +15,7 @@
 
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
-int core(char **split, int lines, char **env, char **av, int *err);
+int core(char *input, char **split, int lines, char **env, char **av, int *err);
 void error_message(int lines, char *split, char **av);
 char *input_maker(size_t size);
 

@@ -41,9 +41,8 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted;
 	size_t size = 32;
-	int *error_value, n, error, lines = 1;
+	int *error_value = malloc(sizeof(int)), n, error, lines = 1;
 
-	error_value = malloc(sizeof(int));
 	*error_value = 0;
 	input = input_maker(size);
 	if (!input)
@@ -55,7 +54,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		n = getline(&input, &size, stdin);
 		if (n == -1)
 		{
-			*error_value = errno;
+			/* *error_value = errno; */
 			break;
 		}
 		if (n == 1)
@@ -68,10 +67,12 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			free(splitted);
 			continue;
 		}
-		switch (core(splitted, lines, env, av, error_value))
+		switch (core(input, splitted, lines, env, av, error_value))
 		{
 			case 0:
-				break;
+				error = *error_value;
+				free(error_value);
+				exit(error);
 			case 1:
 				continue;
 		}
@@ -91,11 +92,12 @@ int main(int ac __attribute__((unused)), char **av, char **env)
  * @lines: ammount of lines
  * @env: enviroment variable
  * @av: arguments
+ * @err: error pointer
  *
  * Return: 10 if success, 0 if exit, 1 if continue, -1 if return-1
 */
 
-int core(char **split, int lines, char **env, char **av, int *err)
+int core(char *input, char **split, int lines, char **env, char **av, int *err)
 {
 	char *command;
 	int i;
@@ -104,6 +106,7 @@ int core(char **split, int lines, char **env, char **av, int *err)
 	if (_strcmp(split[0], "exit"))
 	{
 		array_cleaner(split);
+		free(input);
 		return (0);
 	}
 	if (_strcmp(split[0], "env"))
