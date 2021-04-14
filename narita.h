@@ -14,7 +14,7 @@
 /* -------- Prototypes -------- */
 
 /* simple_shell.c */
-int execute(char *command, char **arguments, char *av);
+int execute(char *command, char **arguments, char *av, int *err);
 int core(char *, char **, int, char **, char **, int *);
 void error_message(int lines, char *split, char **av);
 char *input_maker(size_t size);
