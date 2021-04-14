@@ -59,7 +59,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			break;
 
 		if (input[0] == '\n')
-			continue;
+			break;
 
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
