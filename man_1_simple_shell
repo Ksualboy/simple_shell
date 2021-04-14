@@ -1,79 +1,87 @@
-.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
-.\"See Also:
-.\"man mdoc.samples for a complete listing of options
-.\"man mdoc for the short list of editing options
-.\"/usr/share/misc/mdoc.template
-.Dd 8/4/10               \" DATE
-.Dt Untitled 1      \" Program name and manual section number
-.Os Darwin
-.Sh NAME                 \" Section Header - required - don't modify
-.Nm Untitled,
-.\" The following lines are read in generating the apropos(man -k) database. Use only key
-.\" words here as the database is built based on the words here and in the .ND line.
-.Nm Other_name_for_same_program(),
-.Nm Yet another name for the same program.
-.\" Use .Nm macro to designate other names for the documented program.
-.Nd This line parsed for whatis database.
-.Sh SYNOPSIS             \" Section Header - required - don't modify
-.Nm
-.Op Fl abcd              \" [-abcd]
-.Op Fl a Ar path         \" [-a path]
-.Op Ar file              \" [file]
-.Op Ar                   \" [file ...]
-.Ar arg0                 \" Underlined argument - use .Ar anywhere to underline
-arg2 ...                 \" Arguments
-.Sh DESCRIPTION          \" Section Header - required - don't modify
-Use the .Nm macro to refer to your program throughout the man page like such:
-.Nm
-Underlining is accomplished with the .Ar macro like this:
-.Ar underlined text .
-.Pp                      \" Inserts a space
-A list of items with descriptions:
-.Bl -tag -width -indent  \" Begins a tagged list
-.It item a               \" Each item preceded by .It macro
-Description of item a
-.It item b
-Description of item b
-.El                      \" Ends the list
-.Pp
-A list of flags and their descriptions:
-.Bl -tag -width -indent  \" Differs from above in tag removed
-.It Fl a                 \"-a flag as a list item
-Description of -a flag
-.It Fl b
-Description of -b flag
-.El                      \" Ends the list
-.Pp
-.\" .Sh ENVIRONMENT      \" May not be needed
-.\" .Bl -tag -width "ENV_VAR_1" -indent \" ENV_VAR_1 is width of the string ENV_VAR_1
-.\" .It Ev ENV_VAR_1
-.\" Description of ENV_VAR_1
-.\" .It Ev ENV_VAR_2
-.\" Description of ENV_VAR_2
-.\" .El
-.Sh FILES                \" File used or created by the topic of the man page
-.Bl -tag -width "/Users/joeuser/Library/really_long_file_name" -compact
-.It Pa /usr/share/file_name
-FILE_1 description
-.It Pa /Users/joeuser/Library/really_long_file_name
-FILE_2 description
-.El                      \" Ends the list
-.\" .Sh DIAGNOSTICS       \" May not be needed
-.\" .Bl -diag
-.\" .It Diagnostic Tag
-.\" Diagnostic informtion here.
-.\" .It Diagnostic Tag
-.\" Diagnostic informtion here.
-.\" .El
-.Sh SEE ALSO
-.\" List links in ascending order by section, alphabetically within a section.
-.\" Please do not reference files that do not exist without filing a bug report
-.Xr a 1 ,
-.Xr b 1 ,
-.Xr c 1 ,
-.Xr a 2 ,
-.Xr b 2 ,
-.Xr a 3 ,
-.Xr b 3
-.\" .Sh BUGS              \" Document known, unremedied bugs
-.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+.TH NSShell "April 14 2021" "version 0.89" "Programmer's Manual"
+
+
+
+.SH NAME
+.B Narita Simple Shell (hsh)
+- command interpreter (shell)
+
+
+.SH SYNOPSIS
+.PP
+.B ./hsh
+
+
+
+.PP
+.B 
+.SH DESCRIPTION
+The Narita Simple Shell is a simple command line prompt that runs the basics \
+commands that are present in the bash shell.  It is the program that is running \
+when a user logs into the system. Commands can be typed directly to the running \
+shell or can be put into a file and the file can be executed directly by the \
+shell. The shell works like the bash and other basic shells.
+.PP 
+.PP
+The NSS have the exact same output as sh (/bin/sh) as well as the exact same \
+error output. The only difference is when print an error, the name of the \
+program must be equivalent to the argv[0]
+.PP
+This shell includes two builtins, env and exit (more info below).
+.PP
+The shell was compiled and tested with gcc, compiled this way: \
+gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+
+.PP
+.SH INITIALIZATION AND EXAMPLE OF USE
+To start to use the Narita Simple Shell the user needs to compile \
+using: gcc. Then run the output file by calling ./hsh. 
+.PP
+.B EX: $ ./hsh\
+.PP
+After that, you can start to use the basic and useful commands like ls, pwd,\
+mv, less, etc.
+.PP
+This shell works with commands and arguments (if passed) given by the user \
+throgh input. It handles all the programs that are in the operating system. \
+The syntax is the following: command_name [arguments] This will execute the \
+program "command_name" with the given arguments.
+.PP
+
+.B EX: $ ls file -la 
+.PP
+
+This code will run the program "ls", and it will pass the arguments "file" and \
+"-la" to the program.
+.PP
+.SH EXAMPLE OF NON INTERACTIVE MODE:
+.PP
+.PP
+If the user inputs pipelines or calls for non-interactive mode the Narita \
+Simple Shell would execute that commands. An example of non-interactive mode \
+input:
+.PP
+.B $ echo 'ls -a' | ./hsh
+.PP
+Another example:
+.PP
+.B $ echo "/bin/ls" | ./hsh
+.PP
+.B
+.PP
+.SH BUILT-INS
+.PP
+.B There are two builtins in this shell.\
+
+.PP
+env - tbuilt-in, that prints all of the current environment variables with \
+their values.
+.PP
+exit - built-in, that exits the shell.\
+
+.SH SEE ALSO
+.I Nothing else
+.SH BUGS
+Probably some ones but we dont find them.
+.SH AUTHORS
+.B Ignacio Chitnisky and Daniel Millan
