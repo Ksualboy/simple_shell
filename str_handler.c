@@ -143,12 +143,13 @@ char *numtostr(int n)
 		n = n / 10;
 	}
 
-	strnumber = malloc(typeof(char) * (i + 1));
+	strnumber = malloc(sizeof(char) * (i + 1));
 
-	for (j = 0; j < i; j++)
+	for (j = 1; j <= i; j++)
 	{
-		strnumber[j] = (number % 10) + '0';
+		strnumber[i - j] = (number % 10) + '0';
 		number = number / 10;
 	}
+	strnumber[i] = '\0';
 	return (strnumber);
 }

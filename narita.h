@@ -24,7 +24,7 @@ int _strlen(char *str);
 char *_strdup(char *str);
 char **_split(char *str, char *delim);
 int _strcmp(char *origin, char *comp);
-int digit_calc(int n);
+char *numtostr(int n);
 
 /* path_handler.c */
 char *_getenv(char *name, char **environ);
