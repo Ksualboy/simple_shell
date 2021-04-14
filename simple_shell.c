@@ -53,13 +53,9 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
 		if (n == -1)
-		{
-			/* *error_value = errno; */
 			break;
-		}
 		if (n == 1)
 			continue;
-
 		input[n - 1] = ' ';
 		splitted = _split(input, " ");
 		if (!*splitted)
