@@ -42,20 +42,23 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	char *input, **splitted;
 	size_t size = 32, n, error = -1;
 	unsigned int lines = 1;
+	int *error_value;
 
-	input = (malloc(sizeof(char) * size));
+	error_value = malloc(sizeof(int));
+	*error_value = 0;
+	input = input_maker(size);
 	if (!input)
-	{
-		write(2, "Unable to allocate memory", 25);
-		exit(1);
-	}
+		exit(-1);
 	while (1)
 	{
 		if (isatty(0) == 1)
 			write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
 		if (n == error)
+		{
+			printf("%d\n", errno);
 			break;
+		}
 		if (n == 1)
 			continue;
 
@@ -153,4 +156,15 @@ void error_message(int lines, char *split, char **av)
 	write(2, split, _strlen(split));
 	write(2, ": not found\n", 12);
 	free(strlines);
+}
+
+char *input_maker(size_t size)
+{
+	char *input;
+
+	input = (malloc(sizeof(char) * size));
+	if (!input)
+		write(2, "Unable to allocate memory", 25);
+
+	return (input);
 }
