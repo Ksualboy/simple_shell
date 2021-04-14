@@ -122,7 +122,7 @@ int core(char *input, char **split, int lines, char **env, char **av, int *err)
 	command = getpath(env, split[0]);
 	if (!command)
 	{
-		*err = errno;
+		*err = 127;
 		error_message(lines, split[0], av);
 	}
 	else if (execute(command, split, av[0]) == -1)
