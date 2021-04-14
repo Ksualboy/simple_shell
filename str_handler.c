@@ -125,3 +125,30 @@ int _strcmp(char *origin, char *comp)
 	else
 		return (0);
 }
+
+/**
+ * numtostr - Calculates the ammount of digits
+ * @n: number to evaluate
+ *
+ * Return: The ammount of digits
+*/
+
+char *numtostr(int n)
+{
+	int i = 0, j, number = n;
+	char *strnumber;
+
+	for (i = 0; n != 0; i++)
+	{
+		n = n / 10;
+	}
+
+	strnumber = malloc(typeof(char) * (i + 1));
+
+	for (j = 0; j < i; j++)
+	{
+		strnumber[j] = (number % 10) + '0';
+		number = number / 10;
+	}
+	return (strnumber);
+}
