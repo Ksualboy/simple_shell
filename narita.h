@@ -15,7 +15,7 @@
 
 /* simple_shell.c */
 int execute(char *command, char **arguments, char *av);
-int core(char *input, char **split, int lines, char **env, char **av, int *err);
+int core(char *, char **, int, char **, char **, int *);
 void error_message(int lines, char *split, char **av);
 char *input_maker(size_t size);
 
@@ -31,7 +31,7 @@ char *_getenv(char *name, char **environ);
 char *getpath(char **environ, char *input);
 
 /* memory_handler.c */
-void array_cleaner(char **fire);
+int array_cleaner(char **fire);
 
 
 #endif /* ifndef NARITA_H */

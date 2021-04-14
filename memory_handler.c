@@ -3,9 +3,11 @@
 /**
  * array_cleaner - Cleans a double pointer
  * @fire: Double pointer to clean (Best name)
+ *
+ * Return: 1
  */
 
-void array_cleaner(char **fire)
+int array_cleaner(char **fire)
 {
 	int i;
 
@@ -13,6 +15,7 @@ void array_cleaner(char **fire)
 	{
 		free(fire[i]);
 	}
-
 	free(fire);
+
+	return (1);
 }

@@ -112,14 +112,12 @@ int core(char *input, char **split, int lines, char **env, char **av, int *err)
 			write(1, env[i], _strlen(env[i]));
 			write(1, "\n", 1);
 		}
-		array_cleaner(split);
-		return (1);
+		return (array_cleaner(split));
 	}
 	if (stat(split[0], &st) == 0)
 	{
 		*err = execute(split[0], split, av[0]);
-		array_cleaner(split);
-		return (1);
+		return (array_cleaner(split));
 	}
 	command = getpath(env, split[0]);
 	if (!command)
@@ -157,6 +155,13 @@ void error_message(int lines, char *split, char **av)
 	write(2, ": not found\n", 12);
 	free(strlines);
 }
+
+/**
+ * input_maker - Creates the input variable
+ * @size: Size of the malloc
+ *
+ * Return: input
+ */
 
 char *input_maker(size_t size)
 {
