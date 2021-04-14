@@ -42,7 +42,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	char *input, **splitted;
 	size_t size = 32, n, error = -1;
 	unsigned int lines = 1;
-	int boolean = 1;
 
 /*	signal(SIGINT, signhandler); */
 	input = (malloc(sizeof(char) * size));
@@ -51,13 +50,11 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		write(2, "Unable to allocate memory", 25);
 		exit(1);
 	}
-	if (!isatty(0))
-		boolean = 0;
 
 
 	while (1)
 	{
-		if (boolean == 1)
+		if (isatty(0) == 1)
 			write(1, "#cisfun$ ", 9);
 
 		n = getline(&input, &size, stdin);
