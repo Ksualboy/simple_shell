@@ -5,12 +5,11 @@
  * @command: command to run
  * @arguments: arguments to pass to execve
  * @av: name of the program
- * @err: error
  *
  * Return: -1 if it breaks, 0 if it doesn't
 */
 
-int execute(char *command, char **arguments, char *av, int *err)
+int execute(char *command, char **arguments, char *av)
 {
 	int id;
 
@@ -23,10 +22,9 @@ int execute(char *command, char **arguments, char *av, int *err)
 	{
 		write(2, av, _strlen(av));
 		perror(": ");
-		return (-1);
+		return (errno);
 	}
 
-	*err = errno;
 	return (0);
 }
 
@@ -70,7 +68,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			case 0:
 				error = *error_value;
 				free(error_value);
-				return (error);
+				exit(error);
 			case 1:
 				continue;
 		}
@@ -118,7 +116,7 @@ int core(char *input, char **split, int lines, char **env, char **av, int *err)
 	}
 	if (stat(split[0], &st) == 0)
 	{
-		execute(split[0], split, av[0], err);
+		*err = execute(split[0], split, av[0]);
 		return (array_cleaner(split));
 	}
 	command = getpath(env, split[0]);
@@ -127,9 +125,12 @@ int core(char *input, char **split, int lines, char **env, char **av, int *err)
 		*err = 127;
 		error_message(lines, split[0], av);
 	}
-	else if (execute(command, split, av[0], err) == -1)
+	else if (execute(command, split, av[0]) == -1)
+	{
+		perror(": ");
+		*err = errno;
 		return (0);
-
+	}
 	array_cleaner(split);
 	free(command);
 	return (10);
