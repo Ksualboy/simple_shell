@@ -62,7 +62,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 			break;
 
 		input[n - 1] = ' ';
-		splitted = _split(input, " ");
+		splitted = _split(input, " \n\t\r");
 		switch (core(input, splitted, lines, env, av))
 		{
 			case 0:
