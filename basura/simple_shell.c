@@ -56,7 +56,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
 		if (n == error)
-			continue;
+			break;
 
 		if (input[0] == '\n')
 			continue;
