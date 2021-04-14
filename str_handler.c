@@ -150,7 +150,6 @@ char *numtostr(int n)
 		strnumber[i - j] = (number % 10) + '0';
 		number = number / 10;
 	}
-	printf("%d\n", i);
 	strnumber[i] = '\0';
 	return (strnumber);
 }
