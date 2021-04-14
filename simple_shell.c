@@ -40,7 +40,7 @@ int execute(char *command, char **arguments, char *av)
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted;
-	size_t size = 1024, n;
+	size_t size = 1024;
 	unsigned int lines = 1;
 
 /*	signal(SIGINT, signhandler); */
@@ -49,9 +49,9 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
-		n = getline(&input, &size, stdin);
+		getline(&input, &size, stdin);
 
-		input[n - 1] = ' ';
+
 		splitted = _split(input, " \n\t\r");
 			if (splitted[0] == NULL)
 			continue;
