@@ -51,8 +51,9 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		write(1, "#cisfun$ ", 9);
 		getline(&input, &size, stdin);
 
+
 		splitted = _split(input, " \n\t\r");
-			if (splitted == NULL || *splitted == NULL || **splitted == '\0')
+			if (splitted[0] == NULL)
 			continue;
 
 		switch (core(input, splitted, lines, env, av))
@@ -128,7 +129,8 @@ int core(char *input, char **split, unsigned int lines, char **env, char **av)
 }
 
 /**
- * signhandler - This program allows ctrl+C
+ * signhandler - This program allows ctrl+C to be
+ * printed by the shell
  * @signum: signum
  *
  * Return: void
