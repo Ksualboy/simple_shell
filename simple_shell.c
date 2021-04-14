@@ -40,23 +40,16 @@ int execute(char *command, char **arguments, char *av)
 int main(int ac __attribute__((unused)), char **av, char **env)
 {
 	char *input, **splitted;
-	size_t size = 32, n, error = -1;
+	size_t size = 1024, n;
 	unsigned int lines = 1;
 
 /*	signal(SIGINT, signhandler); */
 	input = (malloc(sizeof(char) * size));
-	if (!input)
-	{
-		write(2, "Unable to allocate memory", 25);
-		exit(1);
-	}
 
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
 		n = getline(&input, &size, stdin);
-		if (n == error)
-			break;
 
 		if (input[0] == '\n')
 			break;
