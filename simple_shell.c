@@ -43,7 +43,6 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 	size_t size = 1024;
 	unsigned int lines = 1;
 
-	
 	input = (malloc(sizeof(char) * size));
 	signal(SIGINT, signhandler);
 	while (1)
